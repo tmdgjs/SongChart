@@ -1,11 +1,11 @@
 {
-    "name": "LOLWalkthrough",
+    "name": "SongChart",
     "version": "1.0",
-    "description": "League Of Legends Walkthrough",
+    "description": "Song search and Chart",
 
     "browser_action": {
       "default_popup": "index.html",
-      "default_icon" : "spatulaIcon.png"
+      "default_icon" : "melon.png"
     },
 
     "permissions": [
