@@ -33,73 +33,7 @@
                 <div id="category_singer">아티스트</div>
                 <div id="category_album">앨범</div>
             </div>
-            <ul>
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                 <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                 <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-
-                <li>
-                    <div class="search_song_title">곡명</div>
-                    <div class="search_song_singer">아티스트</div>
-                    <div class="search_song_album">앨범</div>
-                </li>
-            </ul>
+            <Searchitems />
         </div>
             
        
@@ -110,11 +44,12 @@
 <script>
 
     import Items from './chartitems'
+    import Searchitems from './searchitems'
 
     export default {
-    name: 'items',
+    name: 'items, Searchitems',
     components: {
-        Items
+        Items,Searchitems
     }
 }
 
