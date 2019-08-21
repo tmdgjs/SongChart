@@ -1,4 +1,11 @@
 package kr.hs.hansmari.songchart_server.Service;
 
-public class ChartService {
+import kr.hs.hansmari.songchart_server.VO.MusicInfo;
+
+import java.io.IOException;
+import java.util.List;
+
+public interface ChartService {
+
+    List<MusicInfo> chartitem_init() ;
 }
