@@ -8,4 +8,6 @@ import java.util.List;
 public interface ChartService {
 
     List<MusicInfo> chartitem_init() ;
+
+    List<MusicInfo> chartsearch(String type);
 }

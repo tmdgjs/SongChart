@@ -35,23 +35,38 @@ public class ChartServiceImpl implements ChartService {
                     "td.info > a.artist.ellipsis","a.cover > img","td.info > a.albumtitle.ellipsis","genie"); //genie
 
             init("http://www.mnet.com/chart/top100/","a.MMLI_Song",
-                    "a.MMLIInfo_Artist","div.MMLITitle_Album > a > img","a.MMLIInfo_Album","mnet"); //mnet
+                    "div.MMLITitle_Info","div.MMLITitle_Album > a > img","a.MMLIInfo_Album","mnet"); //mnet
 
             init("https://music.bugs.co.kr/chart","th > p.title > a",
-                    "p.artist > a","a.thumbnail > img","a.album","bugs"); //bugs
+                    "a.thumbnail","a.thumbnail > img","a.album","bugs"); //bugs
 
-            
+
+
+            return musicInfos;
+
+        }
+        catch(IOException e ){
+            return null;
+        }
+
+    }
+
+    @Override
+    public List<MusicInfo> chartsearch(String type) {
+
+        try{
             for(int  i = 0 ; i<musicInfos.size() ; i++){
-
+                if(musicInfos.get(i).getType().equals(type))
                     sells.add(musicInfos.get(i));
             }
 
             return sells;
 
         }
-        catch(IOException e ){
+        catch (Exception e){
             return null;
         }
+
 
     }
 
@@ -67,36 +82,95 @@ public class ChartServiceImpl implements ChartService {
 
         Elements album_tmp = doc.select(album_sel);
 
-        for(int  i = 0 ; i< 2 ; i++){
+        int max = 50, min = 0;
+
+
+
+        for(int  i = min ; i< max ; i++){
+
+
             String title = titles_tmp.get(i).text();
 
             String image = image_tmp.get(i).attr("abs:src");
 
             String album = album_tmp.get(i).text();
 
+            String singers = singers_tmp.get(i).text();
 
             MusicInfo musicInfo;
 
-            if(type.equals("melon")){
-                musicInfo = new MusicInfo(title,image, singer_parceling(singers_tmp.get(i).text()),album,type);
+            switch (type){
+                case "melon" :
+
+                    musicInfo = new MusicInfo(title,image, singer_parceling(singers_tmp.get(i).text()),album,type);
+                    musicInfos.add(musicInfo);
+                    break;
+
+                case "bugs" :
+
+                    String singer_url = singers_tmp.get(i).attr("href");
+                    musicInfo = new MusicInfo(title,image, bugssinger(singer_url),album_tmp.get(i+1).text(),type);
+                    musicInfos.add(musicInfo);
+                    break;
+
+                case "mnet" :
+
+                    musicInfo = new MusicInfo(title,image, mnetStringparse(singers),album,type);
+                    musicInfos.add(musicInfo);
+                    break;
+
+                case "genie" :
+
+                    musicInfo = new MusicInfo(title,image, singers,album,type);
+                    musicInfos.add(musicInfo);
+                    break;
+
+
             }
-
-            else{
-
-                String singers = singers_tmp.get(i).text();
-                musicInfo = new MusicInfo(title,image, singers,album,type);
-            }
-
-            musicInfos.add(musicInfo);
-
         }
     }
 
-    public static String singer_parceling(String tmp){
+    public static String singer_parceling(String tmp){ //melon
         final int mid = tmp.length() / 2;
-        String rs = tmp.substring(0, mid);
+        String rs = tmp.substring(0, mid).trim();
 
-        System.out.print(rs);
+
         return rs;
     }
+
+    public static String mnetStringparse(String str) {
+        int index = str.indexOf("/");
+        String ext = str.substring(0,index).trim();
+
+        return ext;
+    }
+
+    public static String bugssinger(String purl) throws IOException{
+
+        String url = purl;
+        Document doc = Jsoup.connect(url).get();
+
+        Elements p_singers_tmp = doc.select("tr");
+
+        String p_singer = p_singers_tmp.text();
+
+        String data[] = p_singer.split(" ");
+
+        String lst = "" ;
+
+        for(int  i =1 ; i<data.length ; i++) {
+
+            if(data[i].equals("앨범") || data[i].equals("CONNECT")) {
+                break;
+            }
+
+            lst += data[i]+ " ";
+
+        }
+
+        return lst;
+
+    }
+
+
 }

@@ -1,7 +1,7 @@
 <template>
     <div id="main">
 
-        <MelonGene />
+        <MelonGenie />
         
 
         <MnetBugs />
@@ -13,13 +13,13 @@
 
 <script>
 
-    import MelonGene from './melongene'
+    import MelonGenie from './melongenie'
  
     import MnetBugs from './mentbugs'
     export default {
     
     components: {
-        MelonGene,MnetBugs
+        MelonGenie,MnetBugs
     }
 }
 
