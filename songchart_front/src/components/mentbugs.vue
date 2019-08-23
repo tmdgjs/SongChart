@@ -42,6 +42,30 @@
  
     export default {
     
+    data : function (){
+        return {
+          
+            bugs : {
+                 title : [],
+                image : [],
+                album : [],
+                singer : [],
+            },
+            mnet : {
+                 title : [],
+                image : [],
+                album : [],
+                singer : [],
+            },
+            genie : {
+                 title : [],
+                image : [],
+                album : [],
+                singer : [],
+            }
+        }
+    },
+
     components: {
         Items
     }

@@ -1,7 +1,12 @@
 <template>
     <div id="main">
 
-        <MelonGenie />
+        <div class="two_chart">
+            <Melon/>
+
+            <Genie />
+        </div>
+        
         
 
         <MnetBugs />
@@ -13,13 +18,14 @@
 
 <script>
 
-    import MelonGenie from './melongenie'
+    import Genie from './genie'
+    import Melon from './melon'
  
     import MnetBugs from './mentbugs'
     export default {
     
     components: {
-        MelonGenie,MnetBugs
+        Genie,MnetBugs,Melon
     }
 }
 

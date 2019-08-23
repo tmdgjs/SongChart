@@ -31,17 +31,7 @@
 
 import axios from 'axios'
 
-axios.get('http://localhost:8080/chart')
-    .then(res => {
 
-        /*for(let i = 0 ; i< res.data.length ; i++){
-            if(res.data[i].type === 'melon')
-                console.log(res.data[i].imageurl);
-                 
-        }*/
-        
-        
-    })
 
     export default {
         name: 'example',
