@@ -15,9 +15,16 @@ import java.util.List;
 @Service
 public class ChartServiceImpl implements ChartService {
 
-    static List<MusicInfo> musicInfos = new ArrayList<>();
+    static List<MusicInfo> melon = new ArrayList<>();
 
-    static List<MusicInfo> sells = new ArrayList<>();
+    static List<MusicInfo> genie = new ArrayList<>();
+
+    static List<MusicInfo> mnet = new ArrayList<>();
+
+    static List<MusicInfo> bugs = new ArrayList<>();
+
+    static List<MusicInfo> all = new ArrayList<>();
+
 
 
     @Override
@@ -25,8 +32,10 @@ public class ChartServiceImpl implements ChartService {
 
         try{
 
-            musicInfos.clear();
-            sells.clear();
+            melon.clear();
+            genie.clear();
+            mnet.clear();
+            bugs.clear();
 
             init("https://www.melon.com/chart/index.htm","div.ellipsis.rank01",
                     "div.ellipsis.rank02","a.image_typeAll > img","div.ellipsis.rank03 > a","melon"); //melon
@@ -40,9 +49,7 @@ public class ChartServiceImpl implements ChartService {
             init("https://music.bugs.co.kr/chart","th > p.title > a",
                     "a.thumbnail","a.thumbnail > img","a.album","bugs"); //bugs
 
-
-
-            return musicInfos;
+            return all;
 
         }
         catch(IOException e ){
@@ -55,19 +62,36 @@ public class ChartServiceImpl implements ChartService {
     public List<MusicInfo> chartsearch(String type) {
 
         try{
-            for(int  i = 0 ; i<musicInfos.size() ; i++){
-                if(musicInfos.get(i).getType().equals(type))
-                    sells.add(musicInfos.get(i));
-            }
+            switch (type){
+                    case "melon" :
 
-            return sells;
+                        return melon;
+
+
+                    case "bugs" :
+
+
+                        return bugs;
+
+
+                    case "mnet" :
+                        return mnet;
+
+
+                    case "genie" :
+                        return genie;
+
+
+                }
+
+
 
         }
         catch (Exception e){
             return null;
         }
 
-
+        return null;
     }
 
     public static void init(String url, String title_sel , String singer_sel, String image_sel,String album_sel,String type) throws IOException{
@@ -103,26 +127,34 @@ public class ChartServiceImpl implements ChartService {
                 case "melon" :
 
                     musicInfo = new MusicInfo(title,image, singer_parceling(singers_tmp.get(i).text()),album,type);
-                    musicInfos.add(musicInfo);
+                    melon.add(musicInfo);
+
+                    all.add(musicInfo);
                     break;
 
                 case "bugs" :
 
+
                     String singer_url = singers_tmp.get(i).attr("href");
                     musicInfo = new MusicInfo(title,image, bugssinger(singer_url),album_tmp.get(i+1).text(),type);
-                    musicInfos.add(musicInfo);
+                    bugs.add(musicInfo);
+
+                    all.add(musicInfo);
                     break;
 
                 case "mnet" :
 
                     musicInfo = new MusicInfo(title,image, mnetStringparse(singers),album,type);
-                    musicInfos.add(musicInfo);
+                    mnet.add(musicInfo);
+
+                    all.add(musicInfo);
                     break;
 
                 case "genie" :
 
                     musicInfo = new MusicInfo(title,image, singers,album,type);
-                    musicInfos.add(musicInfo);
+                    genie.add(musicInfo);
+                    all.add(musicInfo);
                     break;
 
 

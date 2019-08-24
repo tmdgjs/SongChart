@@ -1,31 +1,23 @@
 <template>
     <div id="main">
-
-        <div class="two_chart">
-            <Melon/>
-
-            <Genie />
-        </div>
         
-        
-
+        <MelonGenie />
         <MnetBugs />
-            
-       
+
     </div>
 </template>
 
 
 <script>
 
-    import Genie from './genie'
-    import Melon from './melon'
+    
+    import MelonGenie from './melongenie'
  
     import MnetBugs from './mentbugs'
     export default {
     
     components: {
-        Genie,MnetBugs,Melon
+        MelonGenie,MnetBugs
     }
 }
 
