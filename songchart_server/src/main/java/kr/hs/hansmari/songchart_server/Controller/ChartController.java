@@ -28,7 +28,7 @@ public class ChartController {
         return this.chartService.chartsearch(type);
     }
 
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "1 * * * * *")
     public void scheduled(){
         Chartshow();
 
