@@ -1,9 +1,11 @@
 package kr.hs.hansmari.songchart_server.Service;
 
 import kr.hs.hansmari.songchart_server.VO.MusicInfo;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +28,6 @@ public class ChartServiceImpl implements ChartService {
     static List<MusicInfo> all = new ArrayList<>();
 
 
-
     @Override
     public List<MusicInfo> chartitem_init()  {
 
@@ -43,8 +44,10 @@ public class ChartServiceImpl implements ChartService {
             init("https://www.genie.co.kr/chart/top200","td.info > a.title.ellipsis",
                     "td.info > a.artist.ellipsis","a.cover > img","td.info > a.albumtitle.ellipsis","genie"); //genie
 
-            init("http://www.mnet.com/chart/top100/","a.MMLI_Song",
-                    "div.MMLITitle_Info","div.MMLITitle_Album > a > img","a.MMLIInfo_Album","mnet"); //mnet
+            /*init("http://www.mnet.com/chart/top100/","a.MMLI_Song",
+                    "div.MMLITitle_Info","div.MMLITitle_Album > a > img","a.MMLIInfo_Album","mnet"); //mnet*/
+
+            initSB();
 
             init("https://music.bugs.co.kr/chart","th > p.title > a",
                     "a.thumbnail","a.thumbnail > img","a.album","bugs"); //bugs
@@ -63,29 +66,23 @@ public class ChartServiceImpl implements ChartService {
 
         try{
             switch (type){
-                    case "melon" :
+                case "melon" :
 
-                        return melon;
+                    return melon;
 
+                case "bugs" :
 
-                    case "bugs" :
+                    return bugs;
 
+                case "mnet" :
 
-                        return bugs;
+                    return mnet;
 
+                case "genie" :
 
-                    case "mnet" :
-                        return mnet;
+                    return genie;
 
-
-                    case "genie" :
-                        return genie;
-
-
-                }
-
-
-
+            }
         }
         catch (Exception e){
             return null;
@@ -108,10 +105,7 @@ public class ChartServiceImpl implements ChartService {
 
         int max = 50, min = 0;
 
-
-
         for(int  i = min ; i< max ; i++){
-
 
             String title = titles_tmp.get(i).text();
 
@@ -162,6 +156,48 @@ public class ChartServiceImpl implements ChartService {
         }
     }
 
+    public static void initSB() throws IOException {
+
+        String url = "http://sbapi.soribada.com/charts/songs/realtime/json/?size=50&cachetype=charts_songs_realtime";
+
+        String raw = Jsoup.connect(url).ignoreContentType(true).execute().body();
+
+        try {
+            JSONObject root = new JSONObject(raw);
+
+            JSONArray array = root.getJSONObject("SoribadaApiResponse").getJSONObject("Songs").getJSONArray("Song");
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject item = array.getJSONObject(i);
+
+                String title = item.getString("Name");
+                String singers = getArtists(item);
+                JSONObject albumObject = item.getJSONObject("Album");
+                String album = albumObject.getString("Name");
+                JSONObject picturesObject = albumObject.getJSONObject("Pictures");
+                String image = picturesObject.getJSONArray("Picture").getJSONObject(3).getString("URL");
+
+                MusicInfo musicInfo = new MusicInfo(title,image, singers,album,"mnet");
+                mnet.add(musicInfo);
+
+                all.add(musicInfo);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String getArtists(JSONObject item) throws JSONException {
+        StringBuilder builder = new StringBuilder();
+        JSONArray artists = item.getJSONObject("Artists").getJSONArray("Artist");
+        for (int i = 0; i < artists.length(); i++) {
+            JSONObject artist = artists.getJSONObject(i);
+            builder.append(artist.getString("Name"));
+            if (i == artists.length() - 1) builder.append(", ");
+        }
+
+        return builder.toString();
+    }
+
     public static String singer_parceling(String tmp){ //melon
         final int mid = tmp.length() / 2;
         String rs = tmp.substring(0, mid).trim();
@@ -203,6 +239,4 @@ public class ChartServiceImpl implements ChartService {
         return lst;
 
     }
-
-
 }

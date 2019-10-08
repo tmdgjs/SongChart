@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -19,18 +20,22 @@ public class ChartController {
     private ChartService chartService;
 
     @GetMapping("/chart")
-    public List<MusicInfo> Chartshow(){
+    public List<MusicInfo> Chartshow() {
         return this.chartService.chartitem_init();
-}
+    }
 
     @GetMapping("/chart/{type}")
-    public List<MusicInfo> Chartsearch(@PathVariable String type){
+    public List<MusicInfo> Chartsearch(@PathVariable String type) {
         return this.chartService.chartsearch(type);
     }
 
-    @Scheduled(cron = "1 * * * * *")
-    public void scheduled(){
-        Chartshow();
+    @PostConstruct
+    public void init() {
+        this.chartService.chartitem_init();
+    }
 
+    @Scheduled(cron = "1 * * * * *")
+    public void scheduled() {
+        Chartshow();
     }
 }
