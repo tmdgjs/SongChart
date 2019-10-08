@@ -1,8 +1,8 @@
 <template>
     <div class="two_chart">
             <div class="chart_wrap">
-                <div style="background : #E30076" class="chart_title">
-                    <h2>엠넷 실시간차트</h2>
+                <div style="background : #037AE2" class="chart_title">
+                    <h2>소리바다 실시간차트</h2>
                 </div>
 
                 <div class="chart_ls">
@@ -59,7 +59,7 @@
 
         mnet_axios : function(){
             
-            axios.get('http://localhost:8080/chart/mnet')
+            axios.get('http://54.180.91.106/chart/mnet')
             .then(res => {
                 for(let i = 0 ; i < res.data.length ; i++){
                     this.mnet.album.push(res.data[i].album);
@@ -73,7 +73,7 @@
 
         bugs_axios : function(){
             
-            axios.get('http://localhost:8080/chart/bugs')
+            axios.get('http://54.180.91.106/chart/bugs')
             .then(res => {
 
                 for(let i = 0 ; i < res.data.length ; i++){
