@@ -1,6 +1,7 @@
 plugins {
     id 'org.springframework.boot' version '2.1.7.RELEASE'
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
     id 'java'
 }
 
@@ -18,12 +19,18 @@ configurations {
     }
 }
 
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls' ]
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-  
+ 
+    implementation fileTree(dir: 'lib', includes:['*.jar']) 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
 
