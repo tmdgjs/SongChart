@@ -3,7 +3,6 @@ package kr.hs.hansmari.songchart_server.Service;
 import kr.hs.hansmari.songchart_server.VO.MusicInfo;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,6 @@ public class ChartServiceImpl implements ChartService {
     static List<MusicInfo> bugs = new ArrayList<>();
 
     static List<MusicInfo> all = new ArrayList<>();
-
 
 
     @Override
@@ -67,25 +65,19 @@ public class ChartServiceImpl implements ChartService {
 
                         return melon;
 
-
                     case "bugs" :
-
 
                         return bugs;
 
-
                     case "mnet" :
+
                         return mnet;
 
-
                     case "genie" :
+
                         return genie;
 
-
                 }
-
-
-
         }
         catch (Exception e){
             return null;
@@ -107,8 +99,6 @@ public class ChartServiceImpl implements ChartService {
         Elements album_tmp = doc.select(album_sel);
 
         int max = 50, min = 0;
-
-
 
         for(int  i = min ; i< max ; i++){
 
