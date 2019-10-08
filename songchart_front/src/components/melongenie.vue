@@ -61,7 +61,7 @@ import axios from 'axios'
         melon_axios : function(){
             
             try{
-                axios.get('http://localhost:8080/chart/melon')
+                axios.get('http://54.180.91.106/chart/melon')
                 .then(res => {
                 for(let  i = 0 ; i < res.data.length; i++){
                     console.log(res.data[i])
@@ -79,7 +79,7 @@ import axios from 'axios'
             },
 
             genie_axios : function(){
-                axios.get('http://localhost:8080/chart/genie')
+                axios.get('http://54.180.91.106/chart/genie')
             
                 .then(res => {
                 for(let  i = 0 ; i < res.data.length; i++){

@@ -59,7 +59,7 @@
 
         mnet_axios : function(){
             
-            axios.get('http://localhost:8080/chart/mnet')
+            axios.get('http://54.180.91.106/chart/mnet')
             .then(res => {
                 for(let i = 0 ; i < res.data.length ; i++){
                     this.mnet.album.push(res.data[i].album);
@@ -73,7 +73,7 @@
 
         bugs_axios : function(){
             
-            axios.get('http://localhost:8080/chart/bugs')
+            axios.get('http://54.180.91.106/chart/bugs')
             .then(res => {
 
                 for(let i = 0 ; i < res.data.length ; i++){
