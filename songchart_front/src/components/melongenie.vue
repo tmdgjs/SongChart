@@ -10,7 +10,7 @@
             <ul>
                 <Items v-for="index in 50" :index="index" :key="index" 
                 :img="melon.image[index-1]" :title="melon.title[index-1]" 
-                :singer="melon.singer[index-1]" :album="melon.album[index-1]"/>
+                :singer="melon.singer[index-1]" :album="melon.album[index-1]" v-bind:url="melon.url"/>
             </ul>
         </div>
     </div>
@@ -23,7 +23,8 @@
         <div class="chart_ls">
             <ul>
                 <Items v-for="index in 50" :index="index" :key="index" 
-                :img="genie.image[index-1]" :title="genie.title[index-1]" :singer="genie.singer[index-1]" :album="genie.album[index-1]"/>
+                :img="genie.image[index-1]" :title="genie.title[index-1]" :singer="genie.singer[index-1]" :album="genie.album[index-1]"
+                v-bind:url="genie.url"/>
             </ul>
         </div>
     </div>
@@ -44,12 +45,14 @@ import axios from 'axios'
                     image : [],
                     album : [],
                     singer : [],
+                    url : "https://www.melon.com/search/total/index.htm?q="
                 },
                 genie : {
                     title : [],
                     image : [],
                     album : [],
                     singer : [],
+                    url : "https://www.genie.co.kr/search/searchMain?query="
                 }
             
             }

@@ -104,11 +104,18 @@
                                     cursor: pointer;
                                     line-height:1.5em;
                                     overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+
+                                    
     
                                 }
                                 .song_title{
-                                    color:#333;
+                                
     
+                                    a{
+                                        text-decoration-line: none;
+                                        color : #333;
+                                    }
+
                                     &:hover{
                                         text-decoration-line: underline;
                                     }

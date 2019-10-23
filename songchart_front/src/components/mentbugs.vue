@@ -1,8 +1,8 @@
 <template>
     <div class="two_chart">
             <div class="chart_wrap">
-                <div style="background : #E30076" class="chart_title">
-                    <h2>엠넷 실시간차트</h2>
+                <div style="background : #0067C4" class="chart_title">
+                    <h2>소리바다 실시간차트</h2>
                 </div>
 
                 <div class="chart_ls">
@@ -21,7 +21,8 @@
                 <div class="chart_ls">
                     <ul>
                         <Items v-for="index in 50" :index="index" :key="index" 
-                        :img="bugs.image[index-1]" :title="bugs.title[index-1]" :singer="bugs.singer[index-1]" :album="bugs.album[index-1]"/>
+                        :img="bugs.image[index-1]" :title="bugs.title[index-1]" :singer="bugs.singer[index-1]" :album="bugs.album[index-1]"
+                        v-bind:url="bugs.url"/>
                     </ul>
                 </div>
             </div>
@@ -43,6 +44,7 @@
                 image : [],
                 album : [],
                 singer : [],
+                url : "https://music.bugs.co.kr/search/integrated?q="
             },
             mnet : {
                 title : [],
