@@ -15,12 +15,13 @@
                     </div>
 
                     <div class="song_singer">
-                        {{this.singer}}
+                        <a v-bind:href="this.url + this.singer" v-bind:title="this.singer" target="_blank">{{this.singer}}</a>
                     </div>
 
                     <div class="song_album">
-                        {{this.album}}
+                         <a v-bind:href="this.url + this.album" v-bind:title="this.album" target="_blank">{{this.album}}</a>
                     </div>
+                    
                 </div>
             </li>
        
