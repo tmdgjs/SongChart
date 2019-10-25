@@ -11,7 +11,6 @@
         .chart_wrap{
         
             color: #1a1a1a;
-            
             width : 300px;
             height : 580px;
             margin:0 auto;
@@ -21,12 +20,10 @@
             .chart_title{
                 
                 height : 80px;
-    
                 display:flex;
                 justify-content: center;
                 align-items: center;
                 background : #fff;
-              
                 border-radius: 15px 15px 0 0;
     
                 h2{
@@ -46,7 +43,6 @@
                 margin-top: 15px;
                 width : 100%;
                 background : #fff;
-                
                 height: 470px;
                 overflow-y: auto;-ms-overflow-style: none;
                 border-radius: 15px;
@@ -58,85 +54,74 @@
                         width : 100%;
                         height : 100%;
     
-                        li{
-                            height : 20%;
-                            border-bottom:1px solid #e5e5e5;
-                            box-sizing: border-box;
-    
+                    li{
+                        height : 20%;
+                        border-bottom:1px solid #e5e5e5;
+                        box-sizing: border-box;
+                        display:flex;
+                        padding : 8px  0;
+
+                        .rank{
+                            width : 15%;
                             display:flex;
-                            padding : 8px  0;
-                            .rank{
-                                width : 15%;
-                                display:flex;
-                                justify-content: center;
-                                align-items: center;
-                                color:#333;
-                            }
-                            
-                            .img_wrap{
+                            justify-content: center;
+                            align-items: center;
+                            color:#333;
+                        }
+                        
+                        .img_wrap{
+
                                 width : 25%;
                                 display:flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                img{
-                                    width : 60px;
-                                    height : 60px;
-        
-                                    
-        
-                                }
-                            }
-    
-                            .song_detail{
-                                font-size : 14px;
-                                color : #969696;
-                                width : 60%;
-                                
-                                
-    
-                                display: flex;
                                 justify-content: center;
                                 align-items: center;
-                                flex-direction: column;
-    
-                                div{
-                                    width : 100%;
-                                    cursor: pointer;
-                                    line-height:1.5em;
-                                    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 
-                                    
-    
-                                }
-                                .song_title{
+                            img{
+
+                                width : 60px;
+                                height : 60px;
+                            }
+                        }
+
+                        .song_detail{
+                            font-size : 14px;
+                            width : 60%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            flex-direction: column;
+
+                            div{
+                                width : 100%;
+                                cursor: pointer;
+                                line-height:1.5em;
+                                overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+
+                                a{
+                                    text-decoration-line: none;
+                                    color: #969696;
                                 
-    
-                                    a{
-                                        text-decoration-line: none;
-                                        color : #333;
-                                    }
-
                                     &:hover{
                                         text-decoration-line: underline;
                                     }
                                 }
-    
+
                             }
-                            
+                            .song_title{
+                                
+                                a{
+                                    color: #333;
+                                    
+                                }
+                            }
                         }
                     }
-            }
-    
-            
+                }
+            }   
         }
     }
-    
-
-     
 }
 
 ::-webkit-scrollbar {
-
-    display:none;
-    
-    }
+    display:none;    
+}
