@@ -18,7 +18,8 @@ public class ChartServiceImpl implements ChartService {
 
     static List<MusicInfo> genie = new ArrayList<>();
 
-    static List<MusicInfo> mnet = new ArrayList<>();
+    //static List<MusicInfo> mnet = new ArrayList<>();
+    static List<MusicInfo> flo = new ArrayList<>();
 
     static List<MusicInfo> bugs = new ArrayList<>();
 
@@ -32,8 +33,8 @@ public class ChartServiceImpl implements ChartService {
 
             melon.clear();
             genie.clear();
-            mnet.clear();
             bugs.clear();
+            flo.clear();
 
             init("https://www.melon.com/chart/index.htm","div.ellipsis.rank01",
                     "div.ellipsis.rank02","a.image_typeAll > img","div.ellipsis.rank03 > a","melon"); //melon
@@ -41,11 +42,13 @@ public class ChartServiceImpl implements ChartService {
             init("https://www.genie.co.kr/chart/top200","td.info > a.title.ellipsis",
                     "td.info > a.artist.ellipsis","a.cover > img","td.info > a.albumtitle.ellipsis","genie"); //genie
 
-            init("http://www.mnet.com/chart/top100/","a.MMLI_Song",
-                    "div.MMLITitle_Info","div.MMLITitle_Album > a > img","a.MMLIInfo_Album","mnet"); //mnet
-
             init("https://music.bugs.co.kr/chart","th > p.title > a",
-                    "a.thumbnail","a.thumbnail > img","a.album","bugs"); //bugs
+                    "a.thumbnail","a.thumbnail > img","a.album","bugs");
+
+            init("https://www.music-flo.com/detail/chart/a","p.tit > strong",
+                    "div.MMLITitle_Info","div.MMLITitle_Album > a > img","a.MMLIInfo_Album","flo"); //flo
+
+             //bugs
 
             return all;
 
@@ -69,9 +72,9 @@ public class ChartServiceImpl implements ChartService {
 
                         return bugs;
 
-                    case "mnet" :
+                    case "flo" :
 
-                        return mnet;
+                        return flo;
 
                     case "genie" :
 
@@ -132,10 +135,10 @@ public class ChartServiceImpl implements ChartService {
                     all.add(musicInfo);
                     break;
 
-                case "mnet" :
+                case "flo" :
 
                     musicInfo = new MusicInfo(title,image, mnetStringparse(singers),album,type);
-                    mnet.add(musicInfo);
+                    flo.add(musicInfo);
 
                     all.add(musicInfo);
                     break;
