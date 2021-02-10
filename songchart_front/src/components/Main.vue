@@ -2,7 +2,7 @@
     <div id="main">
         
         <MelonGenie />
-        <MnetBugs />
+        <FloBugs />
 
     </div>
 </template>
@@ -13,11 +13,11 @@
     
     import MelonGenie from './melongenie'
  
-    import MnetBugs from './mentbugs'
+    import FloBugs from './flobugs'
     export default {
     
     components: {
-        MelonGenie,MnetBugs
+        MelonGenie,FloBugs
     }
 }
 

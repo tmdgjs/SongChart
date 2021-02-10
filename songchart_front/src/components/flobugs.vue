@@ -1,14 +1,15 @@
 <template>
     <div class="two_chart">
             <div class="chart_wrap">
-                <div style="background : #0067C4" class="chart_title">
-                    <h2>소리바다 실시간차트</h2>
+                <div style="background : #4747FF" class="chart_title">
+                    <h2>플로 실시간차트</h2>
                 </div>
 
                 <div class="chart_ls">
                     <ul>
                         <Items v-for="index in 50" :index="index" :key="index" 
-                        :img="mnet.image[index-1]" :title="mnet.title[index-1]" :singer="mnet.singer[index-1]" :album="mnet.album[index-1]"/>
+                        :img="flo.image[index-1]" :title="flo.title[index-1]" :singer="flo.singer[index-1]" :album="flo.album[index-1]"
+                        v-bind:url="flo.url"/>
                     </ul>
                 </div>
             </div>
@@ -46,11 +47,12 @@
                 singer : [],
                 url : "https://music.bugs.co.kr/search/integrated?q="
             },
-            mnet : {
+            flo : {
                 title : [],
                 image : [],
                 album : [],
                 singer : [],
+                url : "https://www.music-flo.com/search/all?keyword="
             },
             
         }
@@ -59,16 +61,16 @@
     methods:{
         
 
-        mnet_axios : function(){
+        flo_axios : function(){
             
-            axios.get('http://localhost:8080/chart/mnet')
+            axios.get('http://localhost:8080/chart/flo')
             .then(res => {
                 for(let i = 0 ; i < res.data.length ; i++){
-                    this.mnet.album.push(res.data[i].album);
-                    this.mnet.image.push(res.data[i].imageurl);
+                    this.flo.album.push(res.data[i].album);
+                    this.flo.image.push(res.data[i].imageurl);
                         
-                    this.mnet.title.push(res.data[i].title);
-                    this.mnet.singer.push(res.data[i].singer);
+                    this.flo.title.push(res.data[i].title);
+                    this.flo.singer.push(res.data[i].singer);
                 }
             })
         },
@@ -91,7 +93,7 @@
 
     mounted: function() {
         this.bugs_axios()
-        this.mnet_axios()
+        this.flo_axios()
         
     },
 
