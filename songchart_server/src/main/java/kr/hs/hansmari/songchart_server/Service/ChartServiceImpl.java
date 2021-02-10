@@ -1,6 +1,8 @@
 package kr.hs.hansmari.songchart_server.Service;
 
 import kr.hs.hansmari.songchart_server.VO.MusicInfo;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -43,12 +45,9 @@ public class ChartServiceImpl implements ChartService {
                     "td.info > a.artist.ellipsis","a.cover > img","td.info > a.albumtitle.ellipsis","genie"); //genie
 
             init("https://music.bugs.co.kr/chart","th > p.title > a",
-                    "a.thumbnail","a.thumbnail > img","a.album","bugs");
+                    "a.thumbnail","a.thumbnail > img","a.album","bugs");  //bugs
 
-            init("https://www.music-flo.com/detail/chart/a","p.tit > strong",
-                    "div.MMLITitle_Info","div.MMLITitle_Album > a > img","a.MMLIInfo_Album","flo"); //flo
-
-             //bugs
+            getFloChart(); // FLO
 
             return all;
 
@@ -135,14 +134,6 @@ public class ChartServiceImpl implements ChartService {
                     all.add(musicInfo);
                     break;
 
-                case "flo" :
-
-                    musicInfo = new MusicInfo(title,image, mnetStringparse(singers),album,type);
-                    flo.add(musicInfo);
-
-                    all.add(musicInfo);
-                    break;
-
                 case "genie" :
 
                     musicInfo = new MusicInfo(title,image, singers,album,type);
@@ -153,6 +144,89 @@ public class ChartServiceImpl implements ChartService {
 
             }
         }
+    }
+
+    public static void getFloChart() throws IOException {
+
+        // 가수, 노래제목, 앨범, 앨범 표지
+
+        String url = "https://www.music-flo.com/api/meta/v1/chart/track/1";
+
+        String raw = Jsoup.connect(url).ignoreContentType(true).execute().body();
+        //System.out.println(raw);
+        JSONObject obj = (JSONObject) new JSONObject(raw).get("data");
+
+        JSONArray array = obj.getJSONArray("trackList");
+
+        int max = 50, min = 0;
+
+        for (int i = 0; i < max; i++) {
+
+            JSONObject item = array.getJSONObject(i);
+
+            JSONArray artistList = item.getJSONArray("artistList");
+
+            String strTitle = item.getString("name"); // 노래 제목
+            
+            String strSingers = getSingerInFLO(item); // 가수 명
+
+            JSONObject albumItem = item.getJSONObject("album");
+            String strAlbumName = String.valueOf(albumItem.get("title"));
+            String strAlbumImage = getAlbumImageInFLO(albumItem);
+
+            MusicInfo musicInfo = new MusicInfo(strTitle, strAlbumImage, strSingers,strAlbumName,"flo");
+
+            flo.add(musicInfo);
+            all.add(musicInfo);
+
+        }
+    }
+
+    private static String getAlbumImageInFLO(JSONObject item) {
+
+        JSONArray albumImageList = item.getJSONArray("imgList");
+        String strAlbumImageURL = "";
+
+        for(int i = 0 ; i < albumImageList.length() ; i++){
+            JSONObject imageSize = albumImageList.getJSONObject(i);
+
+            if(Integer.parseInt(String.valueOf(imageSize.get("size"))) == 200){
+                strAlbumImageURL = String.valueOf(imageSize.get("url"));
+                break;
+            }
+
+        }
+
+        if(strAlbumImageURL.equals("")){
+            JSONObject imageSize = albumImageList.getJSONObject(0);
+            strAlbumImageURL = String.valueOf(imageSize.get("url"));
+        }
+
+        return strAlbumImageURL;
+    }
+
+    public static String getSingerInFLO(JSONObject item){
+
+        JSONArray artistList = item.getJSONArray("artistList");
+        String strRsArtists = "";
+
+        for(int j = 0 ; j < artistList.length(); j++){
+
+            JSONObject names = artistList.getJSONObject(j);
+            String strArtistName = names.getString("name");
+
+            if(artistList.length() >= 2){
+
+                if(j  == artistList.length() -1)
+                    strRsArtists = strRsArtists + strArtistName;
+                else
+                    strRsArtists = strRsArtists + strArtistName + " & ";
+
+            }else{
+                strRsArtists = strArtistName;
+            }
+        }
+        return strRsArtists;
     }
 
     public static String singer_parceling(String tmp){ //melon

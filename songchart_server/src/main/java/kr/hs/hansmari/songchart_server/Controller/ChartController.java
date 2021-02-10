@@ -28,10 +28,10 @@ public class ChartController {
         return this.chartService.chartsearch(type);
     }
 
-    /*@PostConstruct
+    @PostConstruct
     public void init() {
         this.chartService.chartitem_init();
-    }*/
+    }
 
     @Scheduled(cron = "1 * * * * *")
     public void scheduled(){

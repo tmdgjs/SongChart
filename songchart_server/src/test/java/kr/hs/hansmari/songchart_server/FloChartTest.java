@@ -32,8 +32,6 @@ public class FloChartTest {
 
         JSONArray array = obj.getJSONArray("trackList");
 
-        System.out.println(array.length());
-
         for (int i = 0; i < max; i++) {
 
             JSONObject item = array.getJSONObject(i);
@@ -41,18 +39,63 @@ public class FloChartTest {
             JSONArray artistList = item.getJSONArray("artistList");
 
             String name = item.getString("name");
-            System.out.println(name);
+
+            String strAlbum = item.getJSONObject("album").get("title").toString();
+
+            //System.out.println(strAlbum);
+
+            JSONArray albumImageList = item.getJSONObject("album").getJSONArray("imgList");
+            String strAlbumImageURL = "";
+
+            for(int K = 0 ; K < albumImageList.length() ; K++){
+                JSONObject imageSize = albumImageList.getJSONObject(K);
+
+                if(Integer.parseInt(String.valueOf(imageSize.get("size"))) == 200){
+                    strAlbumImageURL = String.valueOf(imageSize.get("url"));
+                    break;
+                }
+
+            }
+
+            if(strAlbumImageURL.equals("")){
+                JSONObject imageSize = albumImageList.getJSONObject(0);
+                strAlbumImageURL = String.valueOf(imageSize.get("url"));
+            }
+
+            System.out.println(strAlbumImageURL);
 
 
-            for(int j = 0 ; j < artistList.length(); j++){
+
+            String rsArtist = "";
+            /*for(int j = 0 ; j < artistList.length(); j++){
+
+                System.out.println(artistList.length());
+
 
                 JSONObject names = artistList.getJSONObject(j);
 
                 String strArtistName = names.getString("name");
 
-                System.out.println(strArtistName);
+                if(artistList.length() >= 2){
 
-            }
+                    if(j  == artistList.length() -1){
+                        rsArtist = rsArtist + strArtistName;
+                    }else{
+
+                        rsArtist = rsArtist + strArtistName + " & ";
+                    }
+
+                }else{
+                    rsArtist = strArtistName;
+                }
+
+                //rsArtist = rsArtist + strArtistName + "&";
+
+
+
+            }*/
+
+            System.out.println(rsArtist);
 
 
             //System.out.println(item);
