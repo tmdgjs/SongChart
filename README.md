@@ -24,7 +24,7 @@
 프로젝트를 클론합니다.
 
 ```
-git clone https://github.com/tmdgjs/blended-codingtest
+git clone https://github.com/tmdgjs/SongChart
 ```
 
 yarn 패키지를 설치합니다.
